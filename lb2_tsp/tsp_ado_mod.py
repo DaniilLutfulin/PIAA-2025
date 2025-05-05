@@ -1,3 +1,4 @@
+
 def read_input():
     start = int(input())
     matrix = [[float(x) for x in input().split()]]
@@ -45,7 +46,6 @@ def prim_mst(matrix, start):
     for i in range(len(heap)):
         heapify_up(heap, i)
 
-
     while heap and False in visited:
         weight, u, v = heap[0]
         heap[0] = heap[-1]
@@ -80,6 +80,7 @@ def mst_tour(mst, matrix, start):
     dfs(start)
     path.append(start)
     return path
+
 def compute_length(path, matrix):
     total = 0.0
     for i in range(len(path) - 1):
