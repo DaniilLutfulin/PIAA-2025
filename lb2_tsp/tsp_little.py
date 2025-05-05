@@ -35,7 +35,6 @@ class Graph():
                 self.d += min_path
 
     def most_expensive_zero(self):
-
         max_cost = -1
         row = col = None
         for i in range(self._n):
@@ -53,18 +52,19 @@ class Graph():
         end_path = -1
 
         for k, path in enumerate(self.paths):
-            if path[-1] == i:
+            
+            if path[-1] == i: # Путь оканчивается на i: нужно добавить справа j
                 start_path = k
                 path.append(j)
                 self.m[path[-1]][path[0]] = inf
 
-            elif j == path[0]:
+            elif j == path[0]:  # Путь начинается на j: нужно добавить слева i
                 end_path = k
                 path.insert(0, i)
                 self.m[path[-1]][path[0]] = inf
-        if start_path != -1 or end_path != -1:
-            if start_path != -1 and end_path != -1:
-                self.paths[start_path].extend(self.paths[end_path][2:])  # слияние start и end
+                
+            if start_path != -1 and end_path != -1: # Нужно склеить 2 пути
+                self.paths[start_path].extend(self.paths[end_path][2:])  # start(end) кончается(начинается) на i, j
                 end = self.paths[start_path][-1]
                 start = self.paths[start_path][0]
                 self.m[end][start] = inf
@@ -72,8 +72,8 @@ class Graph():
         else:
             self.paths.append([i, j])
             self.m[j][i] = inf
+            
     def include_path(self, i, j):
-
         new_graph = self.make_copy()
         new_graph.steps += 1
         for k in range (len(new_graph)):
@@ -137,7 +137,7 @@ def create_graph_from_input():
 graph = create_graph_from_input()
 
 path, ans = find_min_path(graph)
-while path[0]!=0:
+while path[0]!=0: # Крутим решение пока 0 не встанет в начало
     path.append(path[0])
     path.pop(0)
 print(*path)
