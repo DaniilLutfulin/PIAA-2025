@@ -1,10 +1,7 @@
 alphabet = list('ACGTN')
 
-
-
 class Node():
     def __init__(self, parent = None):
-        #self.parent = parent
         self.suff_link = None
         self.term_link = None
         self.term_word = -1
@@ -23,7 +20,6 @@ class Trie():
         for char in str:
             if not cur_node.to[char]:
                 cur_node.to[char] = Node(cur_node)
-                #self.set_sufflink(cur_node.to[char], char)
             cur_node = cur_node.to[char]
         cur_node.term_word = i
 
@@ -68,7 +64,6 @@ def find_substrings(text, words, return_count = False):
         while not cur_node.to[char] and cur_node != trie.root:
             cur_node = cur_node.suff_link
         cur_node = cur_node.to[char] or trie.root
-
         # Поднимаемся по терминальным ссылкам
         temp = cur_node if cur_node.term_word != -1 else cur_node.term_link
         while temp is not None:
@@ -111,8 +106,4 @@ print(*pairs,sep='\n')
 
 print("Всего вершин в боре:")
 print(count)
-#NTAGTAG
-#3
-#TAGT
-#TAG
-#T
+
